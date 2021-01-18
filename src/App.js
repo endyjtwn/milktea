@@ -33,11 +33,11 @@ function App() {
 
   function getAccelerometer() {
     let acl = new Accelerometer({ frequency: 5 });
-    acl.addEventListener('reading', () => {
-      aclx.push(acl.x);
-      acly.push(acl.y);
-      aclz.push(acl.z);
-    });
+    // acl.addEventListener('reading', () => {
+    //   aclx.push(acl.x);
+    //   acly.push(acl.y);
+    //   aclz.push(acl.z);
+    // });
     acl.start();
   }
 
