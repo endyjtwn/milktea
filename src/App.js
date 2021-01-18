@@ -14,16 +14,25 @@ function App() {
   const aclx = [];
   const acly = [];
   const aclz = [];
+
+  function getAccel() {
+    DeviceMotionEvent.requestPermission().then(response => {
+      if (response == 'granted') {
+        console.log("accelerometer permission granted");
+        acl.addEventListener('reading', () => {
+          aclx.push(acl.x);
+          acly.push(acl.y);
+          aclz.push(acl.z);
+        });
+      }
+    });
+  }
+
   function getAccelerometer() {
     acl.addEventListener('reading', () => {
       aclx.push(acl.x);
       acly.push(acl.y);
       aclz.push(acl.z);
-
-      // console.log("Acceleration along the X-axis " + aclx);
-      // console.log("Acceleration along the Y-axis " + acly);
-      // console.log("Acceleration along the Z-axis " + aclz);
-
     });
     acl.start();
 
@@ -37,7 +46,7 @@ function App() {
 
   return (
     <Container>
-      <Title title={"MILK TEA SOUND ALLIANCE"} />
+      <Title title={"MILK TEA SOUND ALLIANCE"} onclick="getAccel()" />
       <View>
         <Command
           getAccelerometer={getAccelerometer}
