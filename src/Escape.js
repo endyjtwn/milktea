@@ -6,7 +6,7 @@ export default function Escape() {
   return (
     <View style={styles.container}>
       <Text style={styles.description}>
-        Show&nbsp;
+        See&nbsp;
         <Text style={styles.command}
         >Result&nbsp;
         </Text>
