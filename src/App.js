@@ -9,34 +9,13 @@ import Result from "./Result";
 
 
 function App() {
+  let acl = new Accelerometer({ frequency: 5 });
   const [result, setResult] = useState("");
   const aclx = [];
   const acly = [];
   const aclz = [];
 
-  useEffect(() => {
-    if (innerWidth < 786) {
-      DeviceMotionEvent.requestPermission().then(response => {
-        if (response == 'granted') {
-          console.log("accelerometer permission granted");
-          window.addEventListener('deviceorientation', (event) => {
-            console.log(event);
-            let acl = new Accelerometer({ frequency: 5 });
-
-            acl.addEventListener('reading', () => {
-              aclx.push(acl.x);
-              acly.push(acl.y);
-              aclz.push(acl.z);
-            });
-          });
-
-        }
-      });
-    }
-  })
-
   function getAccelerometer() {
-    let acl = new Accelerometer({ frequency: 5 });
     acl.addEventListener('reading', () => {
       aclx.push(acl.x);
       acly.push(acl.y);
@@ -46,7 +25,6 @@ function App() {
   }
 
   function stopAccelerometer() {
-    let acl = new Accelerometer({ frequency: 5 });
     acl.stop();
     setResult(aclx + acly + aclz);
     console.log(2222, result);
