@@ -16,11 +16,11 @@ function App() {
 
   useEffect(() => {
     if (innerWidth < 786) {
-      let acl = new Accelerometer({ frequency: 5 });
-
       DeviceMotionEvent.requestPermission().then(response => {
         if (response == 'granted') {
           console.log("accelerometer permission granted");
+          let acl = new Accelerometer({ frequency: 5 });
+
           acl.addEventListener('reading', () => {
             aclx.push(acl.x);
             acly.push(acl.y);
@@ -32,24 +32,20 @@ function App() {
   })
 
   function getAccelerometer() {
-    if (innerWidth >= 786) {
-      let acl = new Accelerometer({ frequency: 5 });
-
-      acl.addEventListener('reading', () => {
-        aclx.push(acl.x);
-        acly.push(acl.y);
-        aclz.push(acl.z);
-      });
-      acl.start();
-    }
+    let acl = new Accelerometer({ frequency: 5 });
+    acl.addEventListener('reading', () => {
+      aclx.push(acl.x);
+      acly.push(acl.y);
+      aclz.push(acl.z);
+    });
+    acl.start();
   }
 
   function stopAccelerometer() {
     let acl = new Accelerometer({ frequency: 5 });
-
     acl.stop();
     setResult(aclx + acly + aclz);
-    // console.log(2222, result);
+    console.log(2222, result);
   }
 
   return (
