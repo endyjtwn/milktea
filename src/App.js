@@ -19,13 +19,17 @@ function App() {
       DeviceMotionEvent.requestPermission().then(response => {
         if (response == 'granted') {
           console.log("accelerometer permission granted");
-          let acl = new Accelerometer({ frequency: 5 });
+          window.addEventListener('deviceorientation', (event) => {
+            console.log(event);
+            let acl = new Accelerometer({ frequency: 5 });
 
-          acl.addEventListener('reading', () => {
-            aclx.push(acl.x);
-            acly.push(acl.y);
-            aclz.push(acl.z);
+            acl.addEventListener('reading', () => {
+              aclx.push(acl.x);
+              acly.push(acl.y);
+              aclz.push(acl.z);
+            });
           });
+
         }
       });
     }
