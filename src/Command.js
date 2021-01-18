@@ -1,13 +1,32 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { View, Text } from "react-native";
 
+
 export default function Command({ description, command, subDescription }) {
+
+  const [isShaking, setIsShaking] = useState(true);
+  let acl = new Accelerometer({ frequency: 60 });
+
+  function getAccelerometer() {
+    acl.addEventListener('reading', () => {
+      console.log("Acceleration along the X-axis " + acl.x);
+      console.log("Acceleration along the Y-axis " + acl.y);
+      console.log("Acceleration along the Z-axis " + acl.z);
+    });
+    acl.start();
+
+  }
+
+  function stopAccelerometer() {
+    acl.stop();
+  }
+
   return (
     <View style={styles.container}>
-      <Text style={styles.command}>{command}</Text>
+      <Text style={styles.command} onClick={getAccelerometer}>{command}</Text>
       <View style={styles.descriptionContainer}>
-        <Text style={styles.description}>{description}</Text>
+        <Text style={styles.description} onClick={stopAccelerometer}>{description}</Text>
         {subDescription ? (
           <Text style={styles.subDescription}>({subDescription})</Text>
         ) : null}
@@ -26,28 +45,36 @@ const styles = {
 
   command: {
     fontSize: 40,
-    color: "#7DF9FF",
+    color: "#000000",
     textShadowColor: "#7DF9FF",
     fontFamily: "Orbitron",
     textShadowOffset: { width: -2, height: 2 },
     textShadowRadius: 30,
     flex: 1,
-    marginRight: 8
+    marginRight: 8,
+    textAlign: "center",
+    cursor: "pointer",
+    background: "#7fff00",
+    borderRadius: "1rem",
+    padding: "0.5rem"
   },
   descriptionContainer: {
     flex: 1
   },
   description: {
-    fontSize: 18,
-    color: "#7fff00",
+    fontSize: 40,
+    color: "#FFFFFF",
     textShadowColor: "#7fff00",
     fontFamily: "Orbitron",
 
     textShadowOffset: { width: -1, height: 1 },
     textShadowRadius: 30,
-    textAlign: "right",
+    textAlign: "center",
 
-    marginBottom: 6
+    cursor: "pointer",
+    background: "red",
+    borderRadius: "1rem",
+    padding: "0.5rem"
   },
   subDescription: {
     fontSize: 12,

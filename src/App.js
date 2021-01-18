@@ -12,40 +12,13 @@ export default class App extends React.Component {
     return (
       <Container>
         <Title title={"MILK TEA SOUND ALLIANCE"} />
-        <Escape />
         <View>
           <Command
-            description={"Quit"}
-            subDescription={"Fails if changes were made"}
-            command={":q"}
-          />
-          <Command
-            description={"Quit without writing"}
-            subDescription={"Discard changes"}
-            command={":q!"}
-          />
-
-          <Command
-            description={"Write current file and Quit"}
-            subDescription={"Saves changes even if there arent any"}
-            command={":wq"}
-          />
-          <Command
-            description={"Write current file and Quit"}
-            subDescription={"Saves changes only if there are changes"}
-            command={":x"}
-          />
-          <Command
-            description={"Quit without writing"}
-            subDescription={"Discard changes"}
-            command={"shift + ZQ"}
-          />
-          <Command
-            description={"Write current file and Quit"}
-            subDescription={"Saves changes only if there are changes"}
-            command={"shift + ZZ"}
+            description={"STOP"}
+            command={"START"}
           />
         </View>
+        <Escape />
       </Container>
     );
   }
