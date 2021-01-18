@@ -10,13 +10,14 @@ import Result from "./Result";
 
 function App() {
   const [result, setResult] = useState("");
-  let acl = new Accelerometer({ frequency: 5 });
   const aclx = [];
   const acly = [];
   const aclz = [];
 
   useEffect(() => {
     if (innerWidth < 786) {
+      let acl = new Accelerometer({ frequency: 5 });
+
       DeviceMotionEvent.requestPermission().then(response => {
         if (response == 'granted') {
           console.log("accelerometer permission granted");
@@ -32,6 +33,8 @@ function App() {
 
   function getAccelerometer() {
     if (innerWidth >= 786) {
+      let acl = new Accelerometer({ frequency: 5 });
+
       acl.addEventListener('reading', () => {
         aclx.push(acl.x);
         acly.push(acl.y);
@@ -42,9 +45,11 @@ function App() {
   }
 
   function stopAccelerometer() {
+    let acl = new Accelerometer({ frequency: 5 });
+
     acl.stop();
     setResult(aclx + acly + aclz);
-    console.log(2222, result);
+    // console.log(2222, result);
   }
 
   return (
