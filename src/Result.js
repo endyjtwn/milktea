@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text } from "react-native";
 
-export default function Escape() {
+export default function Result({ result }) {
 
   return (
     <View style={styles.container}>
@@ -12,6 +12,7 @@ export default function Escape() {
         </Text>
         here
       </Text>
+      <Text style={styles.value}>{result}</Text>
     </View>
   );
 }
@@ -40,5 +41,13 @@ const styles = {
 
     textShadowOffset: { width: -1, height: 1 },
     textShadowRadius: 20
+  },
+  value: {
+    fontSize: 16,
+    color: "#FFFFFF",
+    fontFamily: "Orbitron",
+    position: "absolute",
+    top: "4rem",
+    width: "100%"
   }
 };

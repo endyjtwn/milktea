@@ -3,24 +3,7 @@ import PropTypes from "prop-types";
 import { View, Text } from "react-native";
 
 
-export default function Command({ description, command, subDescription }) {
-
-  const [isShaking, setIsShaking] = useState(true);
-  let acl = new Accelerometer({ frequency: 60 });
-
-  function getAccelerometer() {
-    acl.addEventListener('reading', () => {
-      console.log("Acceleration along the X-axis " + acl.x);
-      console.log("Acceleration along the Y-axis " + acl.y);
-      console.log("Acceleration along the Z-axis " + acl.z);
-    });
-    acl.start();
-
-  }
-
-  function stopAccelerometer() {
-    acl.stop();
-  }
+export default function Command({ getAccelerometer, stopAccelerometer, description, command, subDescription }) {
 
   return (
     <View style={styles.container}>
