@@ -15,27 +15,30 @@ function App() {
   const acly = [];
   const aclz = [];
 
-  function getAccel() {
-    DeviceMotionEvent.requestPermission().then(response => {
-      if (response == 'granted') {
-        console.log("accelerometer permission granted");
-        acl.addEventListener('reading', () => {
-          aclx.push(acl.x);
-          acly.push(acl.y);
-          aclz.push(acl.z);
-        });
-      }
-    });
-  }
+  useEffect(() => {
+    if (innerWidth < 786) {
+      DeviceMotionEvent.requestPermission().then(response => {
+        if (response == 'granted') {
+          console.log("accelerometer permission granted");
+          acl.addEventListener('reading', () => {
+            aclx.push(acl.x);
+            acly.push(acl.y);
+            aclz.push(acl.z);
+          });
+        }
+      });
+    }
+  })
 
   function getAccelerometer() {
-    acl.addEventListener('reading', () => {
-      aclx.push(acl.x);
-      acly.push(acl.y);
-      aclz.push(acl.z);
-    });
-    acl.start();
-
+    if (innerWidth >= 786) {
+      acl.addEventListener('reading', () => {
+        aclx.push(acl.x);
+        acly.push(acl.y);
+        aclz.push(acl.z);
+      });
+      acl.start();
+    }
   }
 
   function stopAccelerometer() {
@@ -46,7 +49,7 @@ function App() {
 
   return (
     <Container>
-      <Title title={"MILK TEA SOUND ALLIANCE"} onclick="getAccel()" />
+      <Title title={"MILK TEA SOUND ALLIANCE"} />
       <View>
         <Command
           getAccelerometer={getAccelerometer}
