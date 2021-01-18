@@ -1,5 +1,16 @@
 import React from "react";
 import { View, Text } from "react-native";
+import {
+  Chord,
+  Scale,
+  noteToFrequency,
+  objectToNote,
+  createChord,
+  createScale,
+  noteToObject,
+  createMelody
+} from 'music-fns';
+import Oscillator from "./useCreateOscillator";
 
 export default function Result({ result }) {
 
@@ -12,6 +23,14 @@ export default function Result({ result }) {
         </Text>
         here
       </Text>
+      {result !== "" ? createChord("F2", Chord.MAJOR)
+        .map(frequency => (
+          <Oscillator
+            frequency={noteToFrequency(frequency)}
+            type={"triangle"}
+            key={frequency}
+          />
+        )) : null}
       <Text style={styles.value}>{result}</Text>
     </View>
   );

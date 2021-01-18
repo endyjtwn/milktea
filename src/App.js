@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 
 import { Text, StyleSheet, View } from "react-native";
+
 import Container from "./Container";
 import Command from "./Command";
 import Title from "./Title";
@@ -27,7 +28,6 @@ function App() {
   function stopAccelerometer() {
     acl.stop();
     setResult(aclx + acly + aclz);
-    console.log(2222, result);
   }
 
   return (
