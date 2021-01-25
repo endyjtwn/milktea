@@ -7,9 +7,14 @@ import Container from "./Container";
 import Command from "./Command";
 import Title from "./Title";
 import Result from "./Result";
+import Size from "./Size";
 
 
 function App() {
+
+  const [size, setSize] = useState(["-size-", "Small", "Medium", "Large"]) // 5, 10, 15 mins
+  const handleAddrTypeChange = (e) => console.log((size[e.target.value]))
+
   let acl = new Accelerometer({ frequency: 5 });
   const [result, setResult] = useState("");
   const aclx = [];
@@ -33,6 +38,7 @@ function App() {
   return (
     <Container>
       <Title title={"MILK TEA SOUND ALLIANCE"} />
+      <Size handleAddrTypeChange={handleAddrTypeChange} size={size} />
       <View>
         <Command
           getAccelerometer={getAccelerometer}
