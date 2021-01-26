@@ -8,12 +8,12 @@ export default function Command({ getAccelerometer, stopAccelerometer, descripti
   return (
     <View style={styles.container}>
       <Text style={styles.command} onClick={getAccelerometer}>{command}</Text>
-      <View style={styles.descriptionContainer}>
+      {/* <View style={styles.descriptionContainer}>
         <Text style={styles.description} onClick={stopAccelerometer}>{description}</Text>
         {subDescription ? (
           <Text style={styles.subDescription}>({subDescription})</Text>
         ) : null}
-      </View>
+      </View> */}
     </View>
   );
 }

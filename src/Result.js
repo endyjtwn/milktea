@@ -12,7 +12,20 @@ import {
 } from 'music-fns';
 import Oscillator from "./useCreateOscillator";
 
+import * as Tone from 'tone'
+
+const synth = new Tone.PolySynth(Tone.Synth).toDestination();
+const now = Tone.now()
+
 export default function Result({ result, note }) {
+  useEffect(() => {
+    if (!note) {
+      return
+    }
+    console.log('note', note)
+    synth.triggerAttackRelease(note, now);
+  }, [note])
+
   return (
     <View style={styles.container}>
       <Text style={styles.description}>
@@ -22,7 +35,7 @@ export default function Result({ result, note }) {
         </Text>
         here
       </Text>
-      {
+      {/* {
         result !== "" ?
           createChord(note, Chord.MAJOR)
             .map(frequency => (
@@ -33,7 +46,7 @@ export default function Result({ result, note }) {
               />
             ))
           : null
-      }
+      } */}
       <Text style={styles.value}>{result}</Text>
     </View>
   );
