@@ -18,8 +18,6 @@ const noteMapArray = Object.keys(noteValues).map((note) => ({
 const totalNote = noteMapArray.length;
 
 function App() {
-  // const [notes, setNotes] = useState([])
-
   const [size, setSize] = useState(["-size-", "Small", "Medium", "Large"]); // 5, 10, 15 mins
   const handleAddrTypeChange = (e) => console.log(size[e.target.value]);
 
@@ -29,28 +27,30 @@ function App() {
   let acl = new Accelerometer({ frequency: 5 });
   const [result, setResult] = useState("");
 
-  const aclx = [];
-  const acly = [];
-  const aclz = [];
-
-  console.log("result", result);
+  // const aclx = [];
+  // const acly = [];
+  // const aclz = [];
 
   function getAccelerometer() {
     acl.addEventListener("reading", () => {
-      aclx.push(acl.x);
-      acly.push(acl.y);
-      aclz.push(acl.z);
+      // aclx.push(acl.x);
+      // acly.push(acl.y);
+      // aclz.push(acl.z);
 
+      // console.log(acl.timestamp);
       const pos = Math.floor(Math.random() * totalNote + 1);
       setNote(noteMapArray[pos].note);
+      console.log('NOTE', note);
+
     });
     acl.start();
   }
 
   function stopAccelerometer() {
+    console.log(11111111);
+
     acl.stop();
-    setResult(aclx + acly + aclz);
-    setNote(null);
+    // setNote(null);
 
     setMelody([...melody, note]);
   }
@@ -67,32 +67,6 @@ function App() {
           command={"START"}
         />
       </View>
-      <h1
-        style={{
-          color: "white",
-          fontFamily: "Monoton",
-          textShadowColor: "#FF00DE",
-          textShadowOffset: { width: -1, height: 1 },
-          textShadowRadius: 30,
-          marginBottom: 16,
-          textAlign: "center",
-        }}
-      >
-        Just keep shaking. Alright?
-      </h1>
-      <h2
-        style={{
-          color: "white",
-          fontFamily: "Monoton",
-          textShadowColor: "#FF00DE",
-          textShadowOffset: { width: -1, height: 1 },
-          textShadowRadius: 30,
-          marginBottom: 16,
-          textAlign: "center",
-        }}
-      >
-        {note && `Playing note: ${note}`}
-      </h2>
       <Result result={result} note={note} />
     </Container>
   );

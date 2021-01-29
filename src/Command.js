@@ -3,17 +3,12 @@ import PropTypes from "prop-types";
 import { View, Text } from "react-native";
 
 
-export default function Command({ getAccelerometer, stopAccelerometer, description, command, subDescription }) {
+export default function Command({ getAccelerometer, stopAccelerometer, description, command }) {
 
   return (
     <View style={styles.container}>
       <Text style={styles.command} onClick={getAccelerometer}>{command}</Text>
-      {/* <View style={styles.descriptionContainer}>
-        <Text style={styles.description} onClick={stopAccelerometer}>{description}</Text>
-        {subDescription ? (
-          <Text style={styles.subDescription}>({subDescription})</Text>
-        ) : null}
-      </View> */}
+      <Text style={styles.description} onClick={stopAccelerometer}>{description}</Text>
     </View>
   );
 }
@@ -41,9 +36,6 @@ const styles = {
     borderRadius: "1rem",
     padding: "0.5rem"
   },
-  descriptionContainer: {
-    flex: 1
-  },
   description: {
     fontSize: 40,
     color: "#FFFFFF",
@@ -53,21 +45,11 @@ const styles = {
     textShadowOffset: { width: -1, height: 1 },
     textShadowRadius: 30,
     textAlign: "center",
-
+    flex: 1,
     cursor: "pointer",
     background: "red",
     borderRadius: "1rem",
     padding: "0.5rem"
-  },
-  subDescription: {
-    fontSize: 12,
-    color: "#59af03",
-    textShadowColor: "#59af03",
-    fontFamily: "Orbitron",
-
-    textShadowOffset: { width: -1, height: 1 },
-    textShadowRadius: 30,
-    textAlign: "right"
   }
 };
 

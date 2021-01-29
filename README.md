@@ -15,6 +15,7 @@ The project that assembles the variety shaking movement while making a tasty mil
 
 ## Tech
 
+* Tone.js
 * React
 * React Native Web
 * React Responsive
