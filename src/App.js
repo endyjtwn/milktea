@@ -36,11 +36,13 @@ function App() {
       // aclx.push(acl.x);
       // acly.push(acl.y);
       // aclz.push(acl.z);
+      if (acl.y > 3) {
+        console.log(acl.timestamp);
+        const pos = Math.floor(Math.random() * totalNote + 1);
+        setNote(noteMapArray[pos].note);
+        console.log('NOTE', note);
+      }
 
-      // console.log(acl.timestamp);
-      const pos = Math.floor(Math.random() * totalNote + 1);
-      setNote(noteMapArray[pos].note);
-      console.log('NOTE', note);
 
     });
     acl.start();
