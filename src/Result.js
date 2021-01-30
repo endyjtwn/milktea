@@ -6,36 +6,36 @@ import * as Tone from 'tone'
 const synth = new Tone.PolySynth(Tone.Synth).toDestination();
 
 export default function Result({ result, melody, status }) {
+
   useEffect(() => {
     if (status === 'stop') {
       console.log('melody', melody);
       const now = Tone.now()
 
-      for (let i = 0; i < melody.length; i++) {
-        const note = melody[i]
-        const t = i === 0 ? now : now + (i - 0.85)
-        console.log('note', note, 'time', t)
-        synth.triggerAttackRelease(note, "8n", t);
+      // loop melody
+      const synthA = new Tone.FMSynth().toDestination();
+      const synthB = new Tone.AMSynth().toDestination();
+      const loopA = new Tone.Loop(time => {
+        for (let i = 0; i < melody.length; i++) {
+          const note = melody[i]
+          const t = i === 0 ? time : time + (i - 0.85)
+          console.log('note', note, 'time', t)
+          synth.triggerAttackRelease(note, "8n", t);
+        }
+      }, "4n").start(0);
+      Tone.Transport.start()
+      Tone.Transport.bpm.rampTo(200, 3);
 
-      }
+      // stop the loop
+      setTimeout(() => {
+        Tone.Transport.stop();
+      }, 5000);
+
+
     }
   }, [melody, status])
 
   useEffect(() => {
-    const now = Tone.now()
-
-    for (const o of [{ note: "C4", t: now }, { note: "E4", t: now + 0.5 }]) {
-      console.log(o.note, o.t)
-      synth.triggerAttackRelease(o.note, "8n", o.t)
-      // synth.triggerAttackRelease(note, "8n", now + 0.5)
-      // synth.triggerAttackRelease(note, "8n", now + 1)
-    }
-
-
-
-    // synth.triggerAttackRelease(["C4", "E4", "G4"], "8n", now)
-    // synth.triggerAttackRelease("E4", "8n", now + 0.5)
-    // synth.triggerAttackRelease("G4", "8n", now + 1)
 
   }, [])
 
