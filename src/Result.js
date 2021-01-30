@@ -6,9 +6,9 @@ import * as Tone from 'tone'
 const synth = new Tone.PolySynth(Tone.Synth).toDestination();
 const now = Tone.now()
 
-export default function Result({ result, note }) {
+export default function Result({ result, note, status }) {
   useEffect(() => {
-    if (!note) {
+    if (!note || status === 'stop') {
       return
     }
     console.log('note', note)

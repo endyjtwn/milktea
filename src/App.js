@@ -11,6 +11,23 @@ import Size from "./Size";
 
 import noteValues from "./noteValues.json";
 
+/**
+ * o.low['10']
+ * {
+ *  low: {
+ *  10: [],
+ * 20: []
+ * },
+ *  middle: ['f#'],
+ * high: ['sdfsdf']
+ * }
+ * 
+ * alc
+ * low = 200
+ * mid = 500
+ * high = 1000
+ */
+
 const noteMapArray = Object.keys(noteValues).map((note) => ({
   note,
   freq: noteValues[note],
@@ -24,37 +41,41 @@ function App() {
   const [note, setNote] = useState(null);
   const [melody, setMelody] = useState([]);
 
+  const [status, setStatus] = useState('stop');
+
   let acl = new Accelerometer({ frequency: 5 });
   const [result, setResult] = useState("");
 
-  // const aclx = [];
-  // const acly = [];
-  // const aclz = [];
+  useEffect(() => {
+    if (status === 'stop') return
+    if (note)
+      setMelody(state => [...state, note])
+  }, [note, status])
+
+  console.log(status);
+
+
+  useEffect(() => {
+    console.log(melody)
+  }, [melody])
 
   function getAccelerometer() {
     acl.addEventListener("reading", () => {
-      // aclx.push(acl.x);
-      // acly.push(acl.y);
-      // aclz.push(acl.z);
-      if (acl.y > 3) {
-        console.log(acl.timestamp);
+      if (acl.x < -3) {
         const pos = Math.floor(Math.random() * totalNote + 1);
         setNote(noteMapArray[pos].note);
-        console.log('NOTE', note);
       }
-
-
+      //
     });
     acl.start();
+    setStatus('start');
   }
 
   function stopAccelerometer() {
     console.log(11111111);
-
     acl.stop();
-    // setNote(null);
-
-    setMelody([...melody, note]);
+    setStatus('stop');
+    console.log(acl.timestamp);
   }
 
   return (
@@ -69,7 +90,7 @@ function App() {
           command={"START"}
         />
       </View>
-      <Result result={result} note={note} />
+      <Result result={result} note={note} status={status} />
     </Container>
   );
 }
