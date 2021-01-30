@@ -54,7 +54,6 @@ function App() {
 
   console.log(status);
 
-
   useEffect(() => {
     console.log(melody)
   }, [melody])
@@ -65,17 +64,15 @@ function App() {
         const pos = Math.floor(Math.random() * totalNote + 1);
         setNote(noteMapArray[pos].note);
       }
-      //
     });
     acl.start();
     setStatus('start');
   }
 
   function stopAccelerometer() {
-    console.log(11111111);
     acl.stop();
     setStatus('stop');
-    console.log(acl.timestamp);
+    setNote(null);
   }
 
   return (
@@ -90,7 +87,7 @@ function App() {
           command={"START"}
         />
       </View>
-      <Result result={result} note={note} status={status} />
+      <Result result={result} melody={melody} status={status} />
     </Container>
   );
 }
