@@ -20,7 +20,7 @@ export default function Result({ result, melody, status }) {
       // Tone.Transport.start();
       // Tone.Transport.stop(10);
 
-      for (let i = 0; i < melody.length; i++) {
+      for (let i = 1; i < melody.length; i++) {
         const note = melody[i]
         const t = i === 0 ? now : now + (i - 0.5)
         console.log('note', note, 'time', t / 10)
