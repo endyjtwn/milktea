@@ -91,6 +91,9 @@ function App() {
           setNote(noteMapArray[pos].note);
 
           console.log(77777);
+        } else {
+          const pos = Math.floor(Math.random() * totalNote + 1);
+          setNote(noteMapArray[pos].note);
         }
         console.log(acl.x, acl.y, acl.z);
 
