@@ -61,39 +61,58 @@ function App() {
   function getAccelerometer() {
     acl.addEventListener("reading", () => {
       if (acl.x <= -2) {
+        const pos = Math.floor(Math.random() * totalNote + 1);
+        setNote(noteMapArray[pos].note);
         if (acl.x > -3 && acl.x <= -2) {
           const pos = Math.floor(Math.random() * 51 + 35);
-          setNote(noteMapArray[pos].note);
+          if (note)
+            setNote(noteMapArray[pos].note);
 
           console.log(2222);
         } else if (acl.x > -4 && acl.x <= -3) {
           const pos = Math.floor(Math.random() * 68 + 52);
-          setNote(noteMapArray[pos].note);
+          console.log('NOTE', note);
+
+          if (note)
+            setNote(noteMapArray[pos].note);
 
           console.log(33333);
         } else if (acl.x > -5 && acl.x <= -4) {
           const pos = Math.floor(Math.random() * 85 + 69);
-          setNote(noteMapArray[pos].note);
+          console.log('NOTE', note);
+
+          if (note)
+            setNote(noteMapArray[pos].note);
 
           console.log(44444);
         } else if (acl.x > -6 && acl.x <= -5) {
           const pos = Math.floor(Math.random() * 102 + 86);
-          setNote(noteMapArray[pos].note);
+          console.log('NOTE', note);
+
+          if (note)
+            setNote(noteMapArray[pos].note);
 
           console.log(55555);
         } else if (acl.x > -7 && acl.x <= -6) {
           const pos = Math.floor(Math.random() * 119 + 103);
-          setNote(noteMapArray[pos].note);
+          console.log('NOTE', note);
+
+          if (note)
+            setNote(noteMapArray[pos].note);
 
           console.log(66666);
         } else if (acl.x > -8 && acl.x <= -7) {
           const pos = Math.floor(Math.random() * 137 + 120);
-          setNote(noteMapArray[pos].note);
+          console.log('NOTE', note);
+
+          if (note)
+            setNote(noteMapArray[pos].note);
 
           console.log(77777);
         } else {
           const pos = Math.floor(Math.random() * totalNote + 1);
-          setNote(noteMapArray[pos].note);
+          if (note)
+            setNote(noteMapArray[pos].note);
         }
         console.log(acl.x, acl.y, acl.z);
 
