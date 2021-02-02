@@ -12,34 +12,23 @@ export default function Result({ result, melody, status }) {
       console.log('melody', melody);
       const now = Tone.now()
 
-      // loop melody
-      const synthA = new Tone.FMSynth().toDestination();
-      const synthB = new Tone.AMSynth().toDestination();
-      const loopA = new Tone.Loop(time => {
-        for (let i = 0; i < melody.length; i++) {
-          const note = melody[i]
-          const t = i === 0 ? time : time + (i - 0.85)
-          console.log('note', note, 'time', t)
-          synth.triggerAttackRelease(note, "8n", t);
-        }
-      }, "4n").start(0);
-      Tone.Transport.start()
-      Tone.Transport.bpm.rampTo(200, 3);
+      // const synth = new Tone.Synth().toDestination();
+      // const seq = new Tone.Sequence((time, note) => {
+      //   synth.triggerAttackRelease(note, 0.5, time);
+      //   // subdivisions are given as subarrays
+      // }, ["C3", "D3", "E3", "F3", "G3", "E3", "D3", "D3", "D3", "E3", "F3", "F3"]).start(0)
+      // Tone.Transport.start();
+      // Tone.Transport.stop(10);
 
-      // stop the loop
-      setTimeout(() => {
-        Tone.Transport.stop();
-      }, 5000);
-
+      for (let i = 0; i < melody.length; i++) {
+        const note = melody[i]
+        const t = i === 0 ? now : now + (i - 0.1)
+        console.log('note', note, 'time', t / 10)
+        synth.triggerAttackRelease(note, "8n", now + t / 3);
+      }
 
     }
   }, [melody, status])
-
-  useEffect(() => {
-
-  }, [])
-
-
 
   return (
     <View style={styles.container}>
