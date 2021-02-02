@@ -37,8 +37,8 @@ export default function Result({ result, melody, status }) {
       <Text style={styles.command}
         >Result&nbsp;
       </Text>
-        here
-    </Text>
+        {melody}
+      </Text>
     </View>
   );
 }
