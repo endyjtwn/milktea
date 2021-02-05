@@ -20,6 +20,8 @@ export default function Result({ result, melody, status }) {
       // Tone.Transport.start();
       // Tone.Transport.stop(10);
 
+      // มัน loop ได้ แต่ว่ามันไม่่ work ใน production เราคิดว่าเป็นที่เวลา เพราะมันรอก่อนพักนึงหลังกด stop 
+      // ก่อนที่จะเริ่มเล่นเพลง
       for (let i = 1; i < melody.length; i++) {
         const note = melody[i]
         const t = i === 1 ? now : now + (i - 0.85)
