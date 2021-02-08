@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import ReactDOM from "react-dom";
 
 import { Text, StyleSheet, View } from "react-native";
@@ -46,28 +46,29 @@ const noteMapArray = Object.keys(noteValues).map((note) => ({
 const totalNote = noteMapArray.length;
 
 function App() {
-  const [size, setSize] = useState(["-size-", "Small", "Medium", "Large"]); // 5, 10, 15 mins
-  const handleAddrTypeChange = (e) => console.log(size[e.target.value]);
-
+  const [size, setSize] = useState("");
   const [note, setNote] = useState(null);
   const [melody, setMelody] = useState([]);
-
-  const [status, setStatus] = useState('stop');
+  const [status, setStatus] = useState("stop");
 
   let acl = new Accelerometer({ frequency: 5 });
   const [result, setResult] = useState("");
 
   useEffect(() => {
-    if (status === 'stop') return
-    if (note)
-      setMelody(state => [...state, note])
-  }, [note, status])
-
-  console.log(status);
+    console.log("melody updated", melody);
+  }, [melody]);
 
   useEffect(() => {
-    console.log(melody)
-  }, [melody])
+    console.log("size updated", size);
+  }, [size]);
+
+  useEffect(() => {
+    if (status === "stop") return;
+    if (note) {
+      console.log("note updated", note);
+      setMelody((state) => [...state, note]);
+    }
+  }, [note, status]);
 
   function getAccelerometer() {
     acl.addEventListener("reading", () => {
@@ -78,73 +79,65 @@ function App() {
         // ตัวโน๊ตจะแรนด้อมตามค่าที่ได้จากเซนเซ่อ
         if (acl.x > -3 && acl.x <= -2) {
           const pos = Math.floor(Math.random() * 51 + 35);
-          if (note)
-            setNote(noteMapArray[pos].note);
+          if (note) setNote(noteMapArray[pos].note);
 
-          console.log(2222);
+          // console.log(2222);
         } else if (acl.x > -4 && acl.x <= -3) {
           const pos = Math.floor(Math.random() * 68 + 52);
-          console.log('NOTE', note);
+          // console.log("NOTE", note);
 
-          if (note)
-            setNote(noteMapArray[pos].note);
+          if (note) setNote(noteMapArray[pos].note);
 
-          console.log(33333);
+          // console.log(33333);
         } else if (acl.x > -5 && acl.x <= -4) {
           const pos = Math.floor(Math.random() * 85 + 69);
-          console.log('NOTE', note);
+          // console.log("NOTE", note);
 
-          if (note)
-            setNote(noteMapArray[pos].note);
+          if (note) setNote(noteMapArray[pos].note);
 
-          console.log(44444);
+          // console.log(44444);
         } else if (acl.x > -6 && acl.x <= -5) {
           const pos = Math.floor(Math.random() * 102 + 86);
-          console.log('NOTE', note);
+          // console.log("NOTE", note);
 
-          if (note)
-            setNote(noteMapArray[pos].note);
+          if (note) setNote(noteMapArray[pos].note);
 
-          console.log(55555);
+          // console.log(55555);
         } else if (acl.x > -7 && acl.x <= -6) {
           const pos = Math.floor(Math.random() * 119 + 103);
-          console.log('NOTE', note);
+          // console.log("NOTE", note);
 
-          if (note)
-            setNote(noteMapArray[pos].note);
+          if (note) setNote(noteMapArray[pos].note);
 
-          console.log(66666);
+          // console.log(66666);
         } else if (acl.x > -8 && acl.x <= -7) {
           const pos = Math.floor(Math.random() * 137 + 120);
-          console.log('NOTE', note);
+          // console.log("NOTE", note);
 
-          if (note)
-            setNote(noteMapArray[pos].note);
+          if (note) setNote(noteMapArray[pos].note);
 
-          console.log(77777);
+          // console.log(77777);
         } else {
           const pos = Math.floor(Math.random() * totalNote + 1);
-          if (note)
-            setNote(noteMapArray[pos].note);
+          if (note) setNote(noteMapArray[pos].note);
         }
         console.log(acl.x, acl.y, acl.z);
-
       }
     });
     acl.start();
-    setStatus('start');
+    setStatus("start");
   }
 
   function stopAccelerometer() {
     acl.stop();
-    setStatus('stop');
+    setStatus("stop");
     setNote(null);
   }
 
   return (
     <Container>
       <Title title={"MILK TEA SOUND ALLIANCE"} />
-      <Size handleAddrTypeChange={handleAddrTypeChange} size={size} />
+      <Size setSize={setSize} />
       <View>
         <Command
           getAccelerometer={getAccelerometer}
@@ -153,7 +146,7 @@ function App() {
           command={"START"}
         />
       </View>
-      <Result result={result} melody={melody} status={status} />
+      <Result melody={melody} status={status} size={size} />
     </Container>
   );
 }
