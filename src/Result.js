@@ -42,6 +42,24 @@ export default function Result({ melody, status, size }) {
     }
   }, [melody, status]);
 
+  useEffect(() => {
+    if (status === "stop" && melody.length > 0) {
+      const seq = new Tone.Sequence((time, note) => {
+        synth.triggerAttackRelease(note, 0.1, time, 0.5);
+      }, ["D4", "D3"["C4", "D4", "E4"], "G4", ["C4", "D4"], "C4", "D4"]).start(0);
+      Tone.Transport.start();
+    }
+  }, [melody, status]);
+
+  useEffect(() => {
+    if (status === "stop" && melody.length > 0) {
+      const seq = new Tone.Sequence((time, note) => {
+        synth.triggerAttackRelease(note, 0.1, time, 0.1);
+      }, ["C0"]).start(0);
+      Tone.Transport.start();
+    }
+  }, [melody, status]);
+
   return (
 
     <View style={styles.container}>
