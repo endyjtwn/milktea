@@ -5,7 +5,6 @@ import * as Tone from "tone";
 
 const synth = new Tone.PolySynth(Tone.Synth).toDestination();
 
-// Adjust time that you want melody to stop here.
 function getDurationFromSize(size) {
   const minute = 60 * 1000;
   if (size === "small") {
@@ -15,12 +14,11 @@ function getDurationFromSize(size) {
   } else if (size === "large") {
     return 15 * minute;
   } else {
-    // Default duration when user not select any options.
     return 5000; // 5s
   }
 }
 
-export default function Result({ melody, status, size }) {
+export default function Result({ melody, status, size, waitAccelerometer }) {
   useEffect(() => {
     if (status === "stop") {
       const duration = getDurationFromSize(size);
@@ -45,18 +43,12 @@ export default function Result({ melody, status, size }) {
   useEffect(() => {
     if (status === "stop" && melody.length > 0) {
       const seq = new Tone.Sequence((time, note) => {
-        synth.triggerAttackRelease(note, 0.1, time, 0.5);
-      }, ["D4", "D3"["C4", "D4", "E4"], "G4", ["C4", "D4"], "C4", "D4"]).start(0);
+        synth.triggerAttackRelease(note, 0.1, time);
+      }, ["C3", "D2", ["D3", "E3"], "C3", "D3", "C1", "D1", ["D1", "E1"], "D3", "E1", "F2", "F2",
+          ["C3", "D3"], "D3", "C1", "D1", "D1", "E2", "F2", "F2", ["C2", "D2"], "D2"]).start(0);
       Tone.Transport.start();
-    }
-  }, [melody, status]);
-
-  useEffect(() => {
-    if (status === "stop" && melody.length > 0) {
-      const seq = new Tone.Sequence((time, note) => {
-        synth.triggerAttackRelease(note, 0.1, time, 0.1);
-      }, ["C0"]).start(0);
-      Tone.Transport.start();
+    } else {
+      Tone.Transport.stop();
     }
   }, [melody, status]);
 
@@ -65,11 +57,7 @@ export default function Result({ melody, status, size }) {
     <View style={styles.container}>
       {
         status === "stop" ?
-          <Text style={styles.description}>
-            hear&nbsp;
-      <Text style={styles.command}>Result&nbsp;</Text>
-            now
-    </Text>
+          <Text style={styles.command} onClick={waitAccelerometer}>Reset</Text>
           : null
       }
 

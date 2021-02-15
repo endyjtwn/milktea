@@ -19,7 +19,7 @@ const totalNote = noteMapArray.length;
 
 function App() {
   const [size, setSize] = useState("");
-  const [note, setNote] = useState('C0');
+  const [note, setNote] = useState("C0");
   const [melody, setMelody] = useState([]);
   const [status, setStatus] = useState("stop");
 
@@ -45,14 +45,11 @@ function App() {
   function getAccelerometer() {
     acl.addEventListener("reading", () => {
       if (acl.x <= -2) {
-        // const pos = Math.floor(Math.random() * totalNote + 1);
-        // const pos = Math.floor(Math.random() * 6) + 1
-
-        // setNote(noteMapArray[pos].note);
+        console.log(acl.x, acl.y, acl.z);
 
         if (acl.x > -3 && acl.x <= -2) {
           const pos = Math.floor(Math.random() * (51 - 35 + 1)) + 35;
-          console.log(22222, acl.x, pos);
+          console.log(22222, acl.x + acl.y + acl.z + pos);
           if (note) setNote(noteMapArray[pos].note);
 
 
@@ -68,18 +65,6 @@ function App() {
           if (note) setNote(noteMapArray[pos].note);
 
 
-        } else if (acl.x > -6 && acl.x <= -5) {
-          const pos = Math.floor(Math.random() * (103 - 86 + 1)) + 86;
-          console.log(555555, acl.x, pos);
-          if (note) setNote(noteMapArray[pos].note);
-
-
-        } else if (acl.x > -7 && acl.x <= -6) {
-          const pos = Math.floor(Math.random() * (120 - 104 + 1)) + 104;
-          if (note) setNote(noteMapArray[pos].note);
-          console.log(666666, acl.x, pos);
-
-
         } else {
           const pos = Math.floor(Math.random() * (34 - 18 + 1)) + 18;
           if (note) setNote(noteMapArray[pos].note);
@@ -89,6 +74,11 @@ function App() {
     });
     acl.start();
     setStatus("start");
+  }
+
+  function waitAccelerometer() {
+    setStatus("wait");
+    setMelody([]);
   }
 
   function stopAccelerometer() {
@@ -109,7 +99,7 @@ function App() {
           command={"START"}
         />
       </View>
-      <Result melody={melody} status={status} size={size} />
+      <Result melody={melody} status={status} size={size} waitAccelerometer={waitAccelerometer} />
     </Container>
   );
 }
