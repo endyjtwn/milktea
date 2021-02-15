@@ -43,12 +43,18 @@ export default function Result({ melody, status, size }) {
   }, [melody, status]);
 
   return (
+
     <View style={styles.container}>
-      <Text style={styles.description}>
-        hear&nbsp;
-        <Text style={styles.command}>Result&nbsp;</Text>
-        {melody}
-      </Text>
+      {
+        status === "stop" ?
+          <Text style={styles.description}>
+            hear&nbsp;
+      <Text style={styles.command}>Result&nbsp;</Text>
+            now
+    </Text>
+          : null
+      }
+
     </View>
   );
 }
