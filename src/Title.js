@@ -6,7 +6,7 @@ import { useMediaQuery } from "react-responsive";
 export default function Title({ title }) {
   const isSmallMobile = useMediaQuery({ query: "(max-width: 600px)" });
   const styles = {
-    fontSize: isSmallMobile ? 50 : 70,
+    fontSize: isSmallMobile ? 50 : 62,
     fontFamily: "Faster One",
     fontFamily: "Monoton",
     color: "#FF00DE",
