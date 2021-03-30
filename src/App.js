@@ -8,6 +8,7 @@ import Command from "./Command";
 import Title from "./Title";
 import Result from "./Result";
 import Size from "./Size";
+import About from "./About";
 
 import noteValues from "./noteValues.json";
 
@@ -89,6 +90,7 @@ function App() {
 
   return (
     <Container>
+      <About />
       <Title title={"MILK TEA SOUND ALLIANCE"} />
       <Size setSize={setSize} />
       <View>
