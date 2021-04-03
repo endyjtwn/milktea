@@ -90,7 +90,6 @@ function App() {
 
   return (
     <Container>
-      <About />
       <Title title={"MILK TEA SOUND ALLIANCE"} />
       <Size setSize={setSize} />
       <View>
@@ -102,6 +101,7 @@ function App() {
         />
       </View>
       <Result melody={melody} status={status} size={size} waitAccelerometer={waitAccelerometer} />
+      <About />
     </Container>
   );
 }

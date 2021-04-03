@@ -8,11 +8,11 @@ const synth = new Tone.PolySynth(Tone.Synth).toDestination();
 function getDurationFromSize(size) {
   const minute = 60 * 1000;
   if (size === "small") {
-    return 5 * minute;
+    return 1 * minute;
   } else if (size === "medium") {
-    return 10 * minute;
+    return 3 * minute;
   } else if (size === "large") {
-    return 15 * minute;
+    return 7 * minute;
   } else {
     return 5000; // 5s
   }
@@ -40,17 +40,17 @@ export default function Result({ melody, status, size, waitAccelerometer }) {
     }
   }, [melody, status]);
 
-  useEffect(() => {
-    if (status === "stop" && melody.length > 0) {
-      const seq = new Tone.Sequence((time, note) => {
-        synth.triggerAttackRelease(note, 0.1, time);
-      }, ["C3", "D2", ["D3", "E3"], "C3", "D3", "C1", "D1", ["D1", "E1"], "D3", "E1", "F2", "F2",
-          ["C3", "D3"], "D3", "C1", "D1", "D1", "E2", "F2", "F2", ["C2", "D2"], "D2"]).start(0);
-      Tone.Transport.start();
-    } else {
-      Tone.Transport.stop();
-    }
-  }, [melody, status]);
+  // useEffect(() => {
+  //   if (status === "stop" && melody.length > 0) {
+  //     const seq = new Tone.Sequence((time, note) => {
+  //       synth.triggerAttackRelease(note, 0.1, time);
+  //     }, ["C3", "D2", ["D3", "E3"], "C3", "D3", "C1", "D1", ["D1", "E1"], "D3", "E1", "F2", "F2",
+  //         ["C3", "D3"], "D3", "C1", "D1", "D1", "E2", "F2", "F2", ["C2", "D2"], "D2"]).start(0);
+  //     Tone.Transport.start();
+  //   } else {
+  //     Tone.Transport.stop();
+  //   }
+  // }, [melody, status]);
 
   return (
 
