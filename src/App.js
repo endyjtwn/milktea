@@ -126,7 +126,6 @@ function App() {
 
   function stopAccelerometer() {
     // acl.stop();
-
     setStatus("stop");
     // setNote(null);
   }
